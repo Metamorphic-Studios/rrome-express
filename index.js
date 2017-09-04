@@ -12,7 +12,7 @@ var route = (rrome) => {
 
    router.get('/models', (req, res) => {
       //JWT to define which models
-      rrome.listModels((err, models) => {
+      rrome.model.listAll((err, models) => {
          res.send((err) ? {error: err} : models)
       });
    });
