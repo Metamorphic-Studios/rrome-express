@@ -20,7 +20,7 @@ var route = (rrome) => {
    router.get('/model/:model_id', (req, res) => {
       var id = req.params.model_id;
       if(id){
-         rrome.getModel(id, (err, model) => {
+         rrome.model.get(id, (err, model) => {
             res.send((err) ? {error: err} : model);
          });
       }else{
@@ -30,13 +30,13 @@ var route = (rrome) => {
 
    router.post('/model/:model_id', (req, res) => {
       var id = req.params.model_id;
-      rrome.updateModel(id, req.body.model, (err, data) => {
+      rrome.model.update(id, req.body.model, (err, data) => {
          res.send((err) ? {error: err} : data)
       });
    });
 
    router.post('/model', (req, res) => {
-      rrome.addModel(req.body.name, req.body.model, (err, id) => {
+      rrome.model.add(req.body.name, req.body.model, (err, id) => {
          res.send((err) ? {error: err} : {id: id})
       });
    });
@@ -44,7 +44,7 @@ var route = (rrome) => {
    router.get('/data/id/:id', (req, res) => {
       var id = req.params.id;
       if(id){
-         rrome.getData(id, (err, data) => {
+         rrome.data.get(id, (err, data) => {
             res.send(data);
          });
       }else{
@@ -56,7 +56,7 @@ var route = (rrome) => {
       var id = req.params.model;
       if(id){
          //121 temp var
-         rrome.getDatas(id, 121, (err, data) => {
+         rrome.data.getAll(id, 121, (err, data) => {
             res.send((err) ? {error: err} : data);
          });
       }else{
@@ -67,7 +67,7 @@ var route = (rrome) => {
    router.post('/data/model/:model', (req, res) => {
       var id = req.params.model;
       if(id){
-         rrome.insertData(id, req.body.blob, 121, (err, id) => {
+         rrome.data.insert(id, req.body.blob, 121, (err, id) => {
             res.send((err) ? {error: err} : {id: id});
          });
       }else{
@@ -78,7 +78,7 @@ var route = (rrome) => {
    router.post('/data/id/:id', (req, res) => {
       var id = req.params.id;
       if(id){
-         rrome.updateData(id, req.body.blob, (err, data) => {
+         rrome.data.update(id, req.body.blob, (err, data) => {
             res.send((err) ? {error: err} : data)
          });
       }else{   
