@@ -88,6 +88,14 @@ var route = (rrome) => {
 
    router.post('/data/id/:id/delete', (req, res) => {
       //Add user check first
+      var id = req.params.id;
+      if(id){
+         rrome.data.remove(id, 121, (err, data) => {
+            res.send((err) ? {error: err} : data);
+         });
+      }else{
+         res.send({error: "No id provided"});
+      }
    });
 
    return router;
