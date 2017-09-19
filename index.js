@@ -12,6 +12,7 @@ var route = (rrome) => {
 
    router.get('/models', (req, res) => {
       //JWT to define which models
+      console.log(req.user);
       rrome.model.listAll((err, models) => {
          res.send((err) ? {error: err} : models)
       });
@@ -55,8 +56,7 @@ var route = (rrome) => {
    router.get('/data/model/:model', (req, res) => {
       var id = req.params.model;
       if(id){
-         //121 temp var
-         rrome.data.getAll(id, 121, (err, data) => {
+         rrome.data.getAll(id, req.user.id, (err, data) => {
             res.send((err) ? {error: err} : data);
          });
       }else{
@@ -67,7 +67,7 @@ var route = (rrome) => {
    router.post('/data/model/:model', (req, res) => {
       var id = req.params.model;
       if(id){
-         rrome.data.insert(id, req.body.blob, 121, (err, id) => {
+         rrome.data.insert(id, req.body.blob, req.user.id, (err, id) => {
             res.send((err) ? {error: err} : {id: id});
          });
       }else{
@@ -90,7 +90,7 @@ var route = (rrome) => {
       //Add user check first
       var id = req.params.id;
       if(id){
-         rrome.data.remove(id, 121, (err, data) => {
+         rrome.data.remove(id, req.user.id, (err, data) => {
             res.send((err) ? {error: err} : data);
          });
       }else{
